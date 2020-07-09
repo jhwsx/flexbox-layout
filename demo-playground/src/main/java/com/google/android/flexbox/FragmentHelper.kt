@@ -99,7 +99,8 @@ internal class FragmentHelper(private val activity: MainActivity, private val fl
     /**
      * Sets the attributes for a [FlexItem] based on the stored default values in
      * the SharedPreferences.
-
+     * 给子 View 的布局参数设置默认值
+     *
      * @param flexItem the FlexItem instance
      * *
      * @return a FlexItem instance, which attributes from the SharedPreferences are updated
@@ -147,13 +148,14 @@ internal class FragmentHelper(private val activity: MainActivity, private val fl
         val position = adapter.getPosition(selectedAsString)
         spinner.setSelection(position)
     }
-
+    // flexDirection： 设置主轴的方向，取值：row(default), row_reverse, column, column_reverse
     private fun initializeFlexDirectionSpinner(navigationMenu: Menu) {
         initializeSpinner(flexContainer.flexDirection, R.id.menu_item_flex_direction,
                 navigationMenu, R.array.array_flex_direction,
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<*>, ignored: View?, position: Int,
                                                 id: Long) {
+                        // 更新设置
                         flexContainer.flexDirection = when (parent.getItemAtPosition(position).toString()) {
                             ROW -> FlexDirection.ROW
                             ROW_REVERSE -> FlexDirection.ROW_REVERSE
@@ -178,7 +180,8 @@ internal class FragmentHelper(private val activity: MainActivity, private val fl
             }
         })
     }
-
+    // flexWrap: 控制弹性容器是单行还是多行,以及相交轴的方向
+    // 取值: noWrap, wrap, wrap_reverse
     private fun initializeFlexWrapSpinner(navigationMenu: Menu) {
         initializeSpinner(flexContainer.flexWrap, R.id.menu_item_flex_wrap,
                 navigationMenu, R.array.array_flex_wrap,
@@ -214,7 +217,8 @@ internal class FragmentHelper(private val activity: MainActivity, private val fl
             }
         })
     }
-
+    // justifyContent: 控制主轴方向上的对齐方式
+    // 取值: flex_start(default), flex_end, center, space_between, space_around, space_evenly
     private fun initializeJustifyContentSpinner(navigationMenu: Menu) {
         initializeSpinner(flexContainer.justifyContent, R.id.menu_item_justify_content,
                 navigationMenu, R.array.array_justify_content,
@@ -249,7 +253,8 @@ internal class FragmentHelper(private val activity: MainActivity, private val fl
             }
         })
     }
-
+    // alignItems: 控制相交轴上的对齐方式
+    // 取值: flex_start(default), flex_end, center, baseline, stretch
     private fun initializeAlignItemsSpinner(navigationMenu: Menu) {
         initializeSpinner(flexContainer.alignItems, R.id.menu_item_align_items,
                 navigationMenu, R.array.array_align_items,
@@ -283,6 +288,7 @@ internal class FragmentHelper(private val activity: MainActivity, private val fl
         })
     }
 
+    // alignContent: 属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
     private fun initializeAlignContentSpinner(navigationMenu: Menu) {
         initializeSpinner(flexContainer.alignContent, R.id.menu_item_align_content,
                 navigationMenu, R.array.array_align_content,

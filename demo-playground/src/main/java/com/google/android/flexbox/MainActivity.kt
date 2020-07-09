@@ -29,6 +29,10 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.apps.flexbox.R
 import com.google.android.material.navigation.NavigationView
 
+/**
+ * 参考中文文章:
+ * https://juejin.im/post/5bce79e76fb9a05cea7fc8b5#heading-17
+ */
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +52,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val radioGroup: RadioGroup = navigationView.getHeaderView(0)
                 .findViewById(R.id.radiogroup_container_implementation)
         val fragmentManager = supportFragmentManager
-
+        // 切换 FlexboxLayout 和 FlexboxLayoutManager
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId == R.id.radiobutton_viewgroup) {
                 replaceToFlexboxLayoutFragment(fragmentManager)
@@ -56,7 +60,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 replaceToRecyclerViewFragment(fragmentManager)
             }
         }
-
+        // 默认是 FlexboxLayout
         if (savedInstanceState == null) {
             replaceToFlexboxLayoutFragment(fragmentManager)
         }

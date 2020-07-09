@@ -24,6 +24,7 @@ import android.view.ViewGroup
 internal class FlexItemChangedListenerImpl(private val flexContainer: FlexContainer) : FlexItemChangedListener {
 
     override fun onFlexItemChanged(flexItem: FlexItem, viewIndex: Int) {
+        // 把改变后的布局参数设置给对应的子 View.
         val view = flexContainer.getFlexItemAt(viewIndex)
         view.layoutParams = flexItem as ViewGroup.LayoutParams
     }

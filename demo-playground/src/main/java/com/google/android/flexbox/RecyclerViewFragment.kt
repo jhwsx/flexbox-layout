@@ -48,6 +48,7 @@ internal class RecyclerViewFragment : Fragment() {
         adapter = FlexItemAdapter(activity, flexboxLayoutManager)
         recyclerView.adapter = adapter
         if (savedInstanceState != null) {
+            // 恢复保存的子 View
             val layoutParams : List<FlexboxLayoutManager.LayoutParams>? = savedInstanceState
                     .getParcelableArrayList(FLEX_ITEMS_KEY)
             layoutParams?.let {

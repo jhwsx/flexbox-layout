@@ -226,6 +226,7 @@ public class FlexboxLayout extends ViewGroup implements FlexContainer {
         mAlignItems = a.getInt(R.styleable.FlexboxLayout_alignItems, AlignItems.FLEX_START);
         mAlignContent = a.getInt(R.styleable.FlexboxLayout_alignContent, AlignContent.FLEX_START);
         mMaxLine = a.getInt(R.styleable.FlexboxLayout_maxLine, NOT_SET);
+        // 解析分割线
         Drawable drawable = a.getDrawable(R.styleable.FlexboxLayout_dividerDrawable);
         if (drawable != null) {
             setDividerDrawableHorizontal(drawable);
@@ -241,6 +242,7 @@ public class FlexboxLayout extends ViewGroup implements FlexContainer {
         if (drawableVertical != null) {
             setDividerDrawableVertical(drawableVertical);
         }
+        // 解析分割线模式
         int dividerMode = a.getInt(R.styleable.FlexboxLayout_showDivider, SHOW_DIVIDER_NONE);
         if (dividerMode != SHOW_DIVIDER_NONE) {
             mShowDividerVertical = dividerMode;
@@ -285,6 +287,10 @@ public class FlexboxLayout extends ViewGroup implements FlexContainer {
         }
     }
 
+    /**
+     * 获取子 View 的数量
+     * @return
+     */
     @Override
     public int getFlexItemCount() {
         return getChildCount();

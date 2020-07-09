@@ -45,24 +45,29 @@ class FlexboxLayoutFragment : Fragment() {
         flexContainer = view.findViewById(R.id.flexbox_layout)
 
         val fragmentHelper = FragmentHelper(activity, flexContainer)
+        // 初始化左侧抽屉里的设置值
         fragmentHelper.initializeViews()
         if (savedInstanceState != null) {
+            // 从 bundle 里面恢复子 View 的布局参数集合
             val flexItems = savedInstanceState
                     .getParcelableArrayList<FlexItem>(FLEX_ITEMS_KEY)!!
             flexContainer.removeAllViews()
             for (i in flexItems.indices) {
                 val flexItem = flexItems[i]
                 val textView = createBaseFlexItemTextView(activity, i)
+                // 给子 View 对象设置布局参数
                 textView.layoutParams = flexItem as FlexboxLayout.LayoutParams
+                // 把子 View 添加给 Flexlayout
                 flexContainer.addView(textView)
             }
         }
+        // 给每个子 View 设置点击事件
         for (i in 0 until flexContainer.flexItemCount) {
             flexContainer.getFlexItemAt(i).setOnClickListener(
                     FlexItemClickListener(activity,
                             FlexItemChangedListenerImpl(flexContainer), i))
         }
-
+        // 添加 Fab
         val addFab: FloatingActionButton = activity.findViewById(R.id.add_fab)
         addFab.setOnClickListener {
             val viewIndex = flexContainer.flexItemCount
@@ -78,6 +83,8 @@ class FlexboxLayoutFragment : Fragment() {
                     FlexItemChangedListenerImpl(flexContainer), viewIndex))
             flexContainer.addView(textView)
         }
+
+        // 移除 Fab
         val removeFab: FloatingActionButton = activity.findViewById(R.id.remove_fab)
         removeFab.setOnClickListener(View.OnClickListener {
             if (flexContainer.flexItemCount == 0) {
@@ -89,12 +96,13 @@ class FlexboxLayoutFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        // 保存子 View 的布局参数集合到 bundle 里面。
         val flexItems = (0 until flexContainer.flexItemCount)
                 .map { flexContainer.getFlexItemAt(it) }
                 .mapTo(ArrayList()) { it.layoutParams as FlexItem }
         outState.putParcelableArrayList(FLEX_ITEMS_KEY, flexItems)
     }
-
+    // 创建子 View 对象
     private fun createBaseFlexItemTextView(context: Context, index: Int): TextView {
         return TextView(context).apply {
             setBackgroundResource(R.drawable.flex_item_background)
